@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors());
-app.use('/', formRoute)
+app.use('/users', formRoute);
 
 // PORT
 const port = process.env.PORT || 4000;
