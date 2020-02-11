@@ -19,9 +19,11 @@ router.route('/').get((req, res) => {
 
 // CREATE User
 router.route('/add-user-data').post((req, res, next) => {
-  console.log("req.body: ", req.body);
-  console.log("userSchema: ", userSchema);
-  userSchema.create(req.body, (error, data) => {
+  let newUser = new userSchema(req.body);
+  // console.log("req: ", req);
+  console.log("newUser: ", newUser);
+  // console.log("userSchema: ", userSchema);
+  userSchema.create(newUser, (error, data) => {
     if (error) {
       console.log("error while saving to db: ", error);
       return next(error)

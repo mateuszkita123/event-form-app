@@ -1,12 +1,13 @@
 import React from 'react';
+import EventForm from "../components/EventForm";
+import SubmitSuccess from "./SubmitSuccess";
+import { connect } from "react-redux";
+import { toggleStatus } from '../actions';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import EventForm from "./EventForm";
-import SubmitSuccess from "./SubmitSuccess";
-import { connect } from "react-redux";
 
 // store.subscribe(() => {
 //   // When state will be updated(in our case, when items will be fetched), 
@@ -19,9 +20,20 @@ import { connect } from "react-redux";
 // });
 
 const mapStateToProps = function(state){
+  console.log("state: ", state);
   return {
     submitted: state.submitted,
     name: state.formData.first_name
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    formSubmit: e => {
+      e.preventDefault();
+      console.log("e: ", e);
+      dispatch(toggleStatus());
+    }
   }
 }
 
@@ -32,7 +44,7 @@ const App = function(props) {
         <Row>
           <Col md={12}>
             <div className="wrapper">
-              { props.submitted ? <SubmitSuccess name={props.name} /> : <EventForm /> }
+              { props.submitted ? <SubmitSuccess name={props.name} onSubmit={props.formSubmit} /> : <EventForm /> }
             </div>
           </Col>
         </Row>
@@ -41,4 +53,4 @@ const App = function(props) {
   );
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

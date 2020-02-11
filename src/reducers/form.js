@@ -6,7 +6,7 @@ const initialState = {
     first_name: '',
     last_name: '',
     user_email: '',
-    event_date: ''
+    event_date: null
   }
 }
 
@@ -22,10 +22,20 @@ export default function handleForm(state = initialState, action) {
       console.log("formData: ", newObj.formData);
     return newObj;
 
+    case actions.DATE_CHANGED:
+    console.log("actions.DATE_CHANGED");
+    console.log("action.payload: ", action.payload);
+    return {
+      ...state,
+      formData: {
+        ...state.formData,
+        event_date: action.payload
+      }
+    };
+
     case actions.TOGGLE_STATUS:
     console.log("actions.TOGGLE_STATUS");
     let isSubmitted = state.submitted;
-
     return {
       ...state,
       submitted: !isSubmitted
