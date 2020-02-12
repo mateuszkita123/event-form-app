@@ -1,5 +1,5 @@
 import React from 'react';
-import EventForm from "../components/EventForm";
+import EventForm from "../containers/EventForm";
 import SubmitSuccess from "./SubmitSuccess";
 import { connect } from "react-redux";
 import { toggleStatus } from '../actions';

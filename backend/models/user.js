@@ -12,7 +12,7 @@ let userSchema = new Schema({
     type: String
   },
   event_date: {
-    type: String
+    type: Date
   }
 }, {
   collection: 'users'

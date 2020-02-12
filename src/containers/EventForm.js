@@ -1,11 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { submitForm, changeDate } from '../actions';
-import Calendar from './Calendar';
+import Calendar from '../components/Calendar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 
 import axios from 'axios';
 
@@ -19,15 +17,6 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     setDate: (date) => {
-      // console.log("date: ", date);
-      // let newD = new Date(date).toISOString();
-      // console.log("newD");
-      // let dateString = parseDate(date);
-      // console.log("dateString: ", dateString);
-      // console.log("dispatch(changeDate(dateString)): ", dispatch(changeDate(dateString)));
-
-      // dispatch(changeDate(dateString));
-
       dispatch(changeDate(date));
     },
     submit: (data) => {
@@ -36,69 +25,6 @@ const mapDispatchToProps = (dispatch) => {
     }
   };
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     setDate: (date) => {
-//       let dateString = parseDate(date);
-//       dispatch(changeDate(dateString));
-//     },
-//     formSubmit: (e) => {
-//       e.preventDefault();
-
-      
-
-//       userData.first_name = nodeObject.first_name.value;
-//       userData.last_name = nodeObject.last_name.value;
-//       userData.user_email = nodeObject.user_email.value;
-//       // userData.event_date = nodeObject.event_date.value;
-//       console.log("userData: ", userData);
-
-//       if (!nodeObject.first_name.value.trim() && !nodeObject.last_name.value.trim() && !nodeObject.user_email.value.trim()) {
-//         return
-//       }
-
-//       // axios.post('http://localhost:4000/add-user-data', userObject)
-//       //   .then(res => console.log(res.data));
-
-//       dispatch(submitForm(userData));
-
-//       console.log("clearing input");
-//       nodeObject.first_name.value = '';
-//       nodeObject.last_name.value = '';
-//       nodeObject.user_email.value = '';
-//       // dispatch(changeDate(null));
-//     }
-//   }
-// }
-
-// const parseDate = function(date) {
-//   let str = "";
-
-//   //parse date parameters
-//   let year = date.getFullYear();
-//   let month = date.getMonth() + 1;
-//   let day = date.getDate();
-
-//   //converting to strings
-//   year = year.toString(10);
-//   month = month.toString(10);
-//   day = day.toString(10);
-
-//   //checking if "0" prefix is needed
-//   if (month.length === 1) {
-//       month = "0" + month;
-//   }
-//   if (day.length === 1) {
-//       day = "0" + day;
-//   }
-  
-//   //concat date string
-//   str = year + "-" + month + "-" + day;
-  
-//   console.log("getDate: ", str);
-//   return str;
-// }
 
 const EventForm = (props, dispatch) => {
   console.log("dispatch: ", dispatch);

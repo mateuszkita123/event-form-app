@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,13 +10,6 @@ const Calendar = ({ event_date, setDate }) => {
   return (<div>
     <DatePicker
       selected={event_date}
-      // onChange={date => {
-      //     console.log("date: ", date);
-      //     let dateString = parseDate(date);
-      //     console.log("dateString: ", dateString);
-      //     console.log("dispatch(changeDate(dateString)): ", dispatch(changeDate(dateString)));
-      //     dispatch(changeDate(dateString));
-      // }}
       onChange={date => {setDate(date)}}
       minDate={new Date()}
       placeholderText="Select an event date"
@@ -23,6 +17,11 @@ const Calendar = ({ event_date, setDate }) => {
       dateFormat="yyyy-MM-dd"
     />
   </div>)
+}
+
+Calendar.propTypes = {
+  event_date: PropTypes.object,
+  setDate: PropTypes.func.isRequired
 }
 
 export default connect()(Calendar)
