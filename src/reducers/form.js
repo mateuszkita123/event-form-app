@@ -1,14 +1,5 @@
 import * as actions from '../actions';
-
-const initialState = {
-  submitted: false,
-  formData: {
-    first_name: '',
-    last_name: '',
-    user_email: '',
-    event_date: null
-  }
-}
+import initialState from '../constans/initialState';
 
 export default function handleForm(state = initialState, action) {
   console.log("action.type: ", action.type);
@@ -35,7 +26,7 @@ export default function handleForm(state = initialState, action) {
 
     case actions.TOGGLE_STATUS:
     console.log("actions.TOGGLE_STATUS");
-    let isSubmitted = state.submitted;
+    const isSubmitted = state.submitted;
     return {
       ...state,
       submitted: !isSubmitted

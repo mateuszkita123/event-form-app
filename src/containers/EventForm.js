@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 
 const mapStateToProps = function(state) {
-  console.log("state: ", state);
+  console.log("state.formData.event_date: ", state.formData.event_date)
   return {
     event_date: state.formData.event_date
   };
@@ -26,8 +26,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 const EventForm = (props, dispatch) => {
-  // console.log("dispatch: ", dispatch);
-  // console.log("props: ", props);
   const nodeObject = {
     first_name: "",
     last_name: "",
@@ -38,17 +36,15 @@ const EventForm = (props, dispatch) => {
     first_name: "",
     last_name: "",
     user_email: "",
-    event_date: {}
+    event_date: null
   };
 
-  const onlyLetters = function(name) {
+  const validateName = function(name) {
     const letters = new RegExp('^[A-Za-z]+$');
-    
     if (name.match(letters)) {
       return true;
     } else {
-      alert("Imię i nazwisko może zawierać tylko litery.");
-      // name.focus();
+      alert("Name and surname may contain only letters.");
       return false;
     }
   };
@@ -58,19 +54,31 @@ const EventForm = (props, dispatch) => {
     if (email.match(mailformat)) {
       return true;
     } else {
-      alert("Wprowadź prawidłowy adres email.");
-      // email.focus();
+      alert("Invalid email.");
       return false;
     }
   };
+
+  const validateDate = function(date) {
+    if (date) {
+      return true;
+    } else {
+      alert("Event date field can't be empty.")
+      return false;
+    }
+  }
 
   const formValidation = function(dataObj) {
     const name = dataObj.first_name;
     const surname = dataObj.last_name;
     const email = dataObj.user_email;
-    if (onlyLetters(name)) {
-      if (onlyLetters(surname)) {
+    const date = dataObj.event_date;
+    if (validateName(name)) {
+      if (validateName(surname)) {
         if (validateEmail(email)) {
+          if (validateDate(date)) {
+            return true;
+          }
         }
       }
     }
@@ -78,7 +86,6 @@ const EventForm = (props, dispatch) => {
   };
 
   const clearInput = function() {
-    console.log("clearing input");
     nodeObject.first_name.value = "";
     nodeObject.last_name.value = "";
     nodeObject.user_email.value = "";
@@ -111,32 +118,51 @@ const EventForm = (props, dispatch) => {
         onSubmit={e => {
           e.preventDefault();
 
-          // set userData to values of nodeObject fields
-          userData.first_name = nodeObject.first_name.value;
-          userData.last_name = nodeObject.last_name.value;
-          userData.user_email = nodeObject.user_email.value;
-          userData.event_date = props.event_date;
+          if(
+            !!nodeObject.first_name.value.trim() &&
+            !!nodeObject.last_name.value.trim() &&
+            !!nodeObject.user_email.value.trim() &&
+            props.event_date !== null
+          ) {
+            // format data strings
+            let first_name_str = nodeObject.first_name.value.trim().toLowerCase();
+            first_name_str = first_name_str.charAt(0).toUpperCase() + first_name_str.substring(1);
 
-          // if (
-          //   !nodeObject.first_name.value.trim() ||
-          //   !nodeObject.last_name.value.trim() ||
-          //   !nodeObject.user_email.value.trim() ||
-          //   userData.event_date === null
-          // ) {
-          //   console.log("Submit forbidden - empty form field/s!");
-          //   return;
-          // } else {
-          //   axios
-          //     .post("http://localhost:4000/users/add-user-data", userData)
-          //     .then(res => console.log("res.data: ", res.data))
-          //     .then(props.submit(userData))
-          //     .then(clearInput());
-          // }
+            let last_name_str = nodeObject.last_name.value.trim().toLowerCase();
+            last_name_str = last_name_str.charAt(0).toUpperCase() + last_name_str.substring(1);
 
-          const isValid = formValidation(userData);
+            let user_email_str = nodeObject.user_email.value.trim().toLowerCase();
 
-          if(isValid) {
-            postData(userData);
+            // set userData to values of nodeObject fields
+            userData.first_name = first_name_str;
+            userData.last_name = last_name_str;
+            userData.user_email = user_email_str;
+            userData.event_date = props.event_date;
+
+
+            // if (
+            //   !nodeObject.first_name.value.trim() ||
+            //   !nodeObject.last_name.value.trim() ||
+            //   !nodeObject.user_email.value.trim() ||
+            //   userData.event_date === null
+            // ) {
+            //   console.log("Submit forbidden - empty form field/s!");
+            //   return;
+            // } else {
+            //   axios
+            //     .post("http://localhost:4000/users/add-user-data", userData)
+            //     .then(res => console.log("res.data: ", res.data))
+            //     .then(props.submit(userData))
+            //     .then(clearInput());
+            // }
+
+            const isValid = formValidation(userData);
+
+            if(isValid) {
+              postData(userData);
+            }
+          } else {
+            alert("Form fields can't be empty.");
           }
         }}
       >

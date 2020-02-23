@@ -8,7 +8,8 @@ const Calendar = ({ event_date, setDate }) => {
   console.log("event_date: ", event_date);
   console.log("setDate: ", setDate);
   return (<div>
-    <DatePicker
+    <DatePicker 
+      className="form-control"
       selected={event_date}
       onChange={date => {setDate(date)}}
       minDate={new Date()}

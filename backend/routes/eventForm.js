@@ -26,9 +26,11 @@ router.route('/add-user-data').post((req, res, next) => {
   userSchema.create(newUser, (error, data) => {
     if (error) {
       console.log("error while saving to db: ", error);
+      console.log("res.status: ", res.statusCode)
       return next(error)
     } else {
       console.log("created user with data: ", data)
+      console.log("res.status: ", res.statusCode)
       res.json(data)
     }
   })

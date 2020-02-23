@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 const RestartForm = ({ name, onSubmit }) => {
-  return (<div className="">
+  return (<div id="header" className="header">
     <h1>
       Thank you for submitting the form {name}
     </h1>

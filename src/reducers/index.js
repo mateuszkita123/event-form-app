@@ -1,9 +1,5 @@
-// import { combineReducers } from 'redux'
+// as app become more complex you can combine reducers here
 import form from './form'
-
-// const todoApp = combineReducers({
-//   form
-// })
 
 const eventFormApp = form;
 
