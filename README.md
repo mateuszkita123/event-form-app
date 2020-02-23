@@ -21,6 +21,7 @@ In the project directory, you can run:
 NPM will install all necessary packages to run app.<br />
 
 <br />
+
 ## Running MongoDB database
 
 To run database after installing MongoDB go to MongoDB directory and run mongod.exe
@@ -28,6 +29,7 @@ To run database after installing MongoDB go to MongoDB directory and run mongod.
 example of mongod.exe location: C:\Program Files\MongoDB\Server\4.2\bin\mongod.exe
 
 <br />
+
 ## Running Backend of app
 
 In the backend directory, you can run:
@@ -37,6 +39,7 @@ In the backend directory, you can run:
 Node will start serving app on [http://localhost:4000](http://localhost:4000).<br />
 
 <br />
+
 ## Running Frontend of app
 
 In the project directory, you can run:
